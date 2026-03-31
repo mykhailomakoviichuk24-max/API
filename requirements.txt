@@ -1,0 +1,6 @@
+fastapi[all]
+sqlalchemy[asyncio]
+asyncpg
+pytest
+pytest-asyncio
+httpx
