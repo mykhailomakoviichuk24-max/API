@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: Library API Mock
+  version: 1.0.0
+paths:
+  /books/:
+    get:
+      summary: Отримати список книг
+      responses:
+        '200':
+          description: Успішна відповідь зі списком книг
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "60d5ec49c28f1b2a5c5d8a11"
+                    title:
+                      type: string
+                      example: "1984"
+                    author:
+                      type: string
+                      example: "Джордж Оруелл"
+                    release_year:
+                      type: integer
+                      example: 1949

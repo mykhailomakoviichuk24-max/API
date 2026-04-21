@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+motor
+passlib[bcrypt]
+python-jose[cryptography]
+pydantic
+pydantic-settings
+redis
+pytest
+pytest-asyncio
+httpx
+python-multipart
