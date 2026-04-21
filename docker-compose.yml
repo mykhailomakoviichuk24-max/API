@@ -1,0 +1,42 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: library_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:latest
+    container_name: library_redis
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    container_name: library_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - REDIS_URL=redis://redis:6379
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  prism:
+    image: stoplight/prism:latest
+    container_name: library_mock_api
+    ports:
+      - "4010:4010"
+    volumes:
+      - ./openapi.yaml:/api/openapi.yaml:ro
+    command: mock -h 0.0.0.0 /api/openapi.yaml -m false
+
+volumes:
+  mongo_data:
